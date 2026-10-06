@@ -1,0 +1,18 @@
+[
+  {
+    "id": "pontcharra",
+    "name": "Pontcharra-sur-Bréda",
+    "query": "Pontcharra-sur-Bréda (38530, Isère)",
+    "lat": 45.4333,
+    "lon": 6.0167,
+    "radius_km": 10
+  },
+  {
+    "id": "vassiviere",
+    "name": "Auphelle / Lac de Vassivière",
+    "query": "Auphelle, lac de Vassivière, commune de Peyrat-le-Château (87470, Haute-Vienne)",
+    "lat": 45.8,
+    "lon": 1.87,
+    "radius_km": 15
+  }
+]

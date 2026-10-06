@@ -1,0 +1,59 @@
+name: Déploiement GitHub Pages
+
+# Le code du site vit sur main ; les données sur la branche claude/events-data,
+# mise à jour chaque semaine par la routine Claude. Un push sur l'une ou l'autre redéploie.
+on:
+  push:
+    branches: [main, claude/events-data]
+  schedule:
+    - cron: '0 6 * * 6' # filet de sécurité hebdo (samedi matin)
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - name: Récupérer les données de la routine
+        run: |
+          if git ls-remote --exit-code --heads origin claude/events-data; then
+            git fetch --depth=1 origin claude/events-data
+            git show FETCH_HEAD:events.json > public/events.json
+            git show FETCH_HEAD:agenda.xlsx > public/agenda.xlsx 2>/dev/null || rm -f public/agenda.xlsx
+            echo "Données de production utilisées"
+          else
+            echo "Pas encore de branche de données : jeu d'exemple conservé"
+          fi
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run build
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- Proto : non référencé. Retirer pour la mise en ligne publique. -->
+    <meta name="robots" content="noindex, nofollow" />
+    <title>Agenda des animations</title>
+  </head>
+  <body>
+    <header class="top">
+      <h1>Agenda des animations</h1>
+      <span id="updated" class="updated"></span>
+      <a id="xlsx" class="xlsx" href="agenda.xlsx" download hidden>Excel</a>
+      <button type="button" id="toggle-filters" class="only-mobile">Filtres</button>
+    </header>
+
+    <div class="layout">
+      <aside class="side">
+        <form id="filters" class="filters" onsubmit="return false">
+          <fieldset>
+            <legend>Dates</legend>
+            <div class="dates">
+              <label>Du <input type="date" id="from" /></label>
+              <label>au <input type="date" id="to" /></label>
+            </div>
+            <div class="presets" id="date-presets">
+              <button type="button" data-preset="today">Aujourd'hui</button>
+              <button type="button" data-preset="weekend">Ce week-end</button>
+              <button type="button" data-preset="7">7 jours</button>
+              <button type="button" data-preset="30">30 jours</button>
+              <button type="button" data-preset="all">Tout</button>
+            </div>
+          </fieldset>
+
+          <fieldset>
+            <legend>Types d'activité</legend>
+            <div class="chips" id="cats"></div>
+          </fieldset>
+
+          <fieldset>
+            <legend>Zone</legend>
+            <select id="zone"><option value="">Toutes les zones</option></select>
+            <label class="check"><input type="checkbox" id="inview" /> Limiter à la partie visible de la carte</label>
+          </fieldset>
+
+          <fieldset class="inline">
+            <legend>Intérêt minimum</legend>
+            <select id="score">
+              <option value="1">Tous</option>
+              <option value="2">●● et plus</option>
+              <option value="3">●●● et plus</option>
+              <option value="4">●●●● et plus</option>
+              <option value="5">●●●●● seulement</option>
+            </select>
+            <button type="button" id="reset" class="link">Réinitialiser</button>
+          </fieldset>
+        </form>
+
+        <div class="tabs only-mobile">
+          <button type="button" data-tab="map">Carte</button>
+          <button type="button" data-tab="list">Liste <span id="count-tab"></span></button>
+        </div>
+
+        <div class="list-wrap">
+          <p id="summary" class="summary">Chargement…</p>
+          <ol id="list" class="list"></ol>
+          <p class="disclaimer">
+            Événements collectés automatiquement depuis des sites publics. Horaires et dates peuvent changer :
+            vérifiez toujours auprès de la source.
+          </p>
+        </div>
+      </aside>
+
+      <main id="map" aria-label="Carte des événements"></main>
+    </div>
+
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>
