@@ -14,5 +14,29 @@
     "lat": 45.8,
     "lon": 1.87,
     "radius_km": 15
+  },
+  {
+    "id": "haute-vienne",
+    "name": "Haute-Vienne (87)",
+    "query": "Tout le département de la Haute-Vienne (87), dont Limoges",
+    "lat": 45.89,
+    "lon": 1.24,
+    "radius_km": 50
+  },
+  {
+    "id": "creuse",
+    "name": "Creuse (23)",
+    "query": "Tout le département de la Creuse (23), dont Guéret et Aubusson",
+    "lat": 46.08,
+    "lon": 2.02,
+    "radius_km": 50
+  },
+  {
+    "id": "correze",
+    "name": "Corrèze (19)",
+    "query": "Tout le département de la Corrèze (19), dont Brive, Tulle et Ussel",
+    "lat": 45.36,
+    "lon": 1.87,
+    "radius_km": 50
   }
 ]

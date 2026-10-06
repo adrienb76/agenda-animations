@@ -9,13 +9,14 @@ CONTEXTE : le dépôt adrienb76/agenda-animations est cloné dans ton répertoir
     git ls-remote --exit-code --heads origin claude/events-data && git fetch origin claude/events-data && git show FETCH_HEAD:events.json > <scratchpad>/previous.json
   Elles servent à garder des identifiants stables et à réutiliser les coordonnées déjà trouvées (même lieu + même commune).
 
-ÉTAPE 2 — COLLECTE (pour chaque zone, dans le rayon indiqué)
+ÉTAPE 2 — COLLECTE (pour chaque zone, dans le rayon indiqué ; pour une zone « département », tout le département)
+Les zones peuvent se chevaucher (ex. Vassivière est dans la Haute-Vienne et touche la Creuse) : un événement n'appartient qu'à UNE zone, la plus petite (plus petit radius_km) qui le contient.
 Types : tout ce qui est ouvert au public (concerts, soirées de bars et restaurants, marchés, fêtes, manifestations de mairie, office de tourisme, associations, sport, culture, expositions, sorties nature, vide-greniers…). Pas d'autre filtre.
 Sources, par priorité :
 1. Bases structurées : OpenAgenda (openagenda.com), Apidae / sites d'office de tourisme qui l'utilisent, DATAtourisme, agendas départementaux (Isère Tourisme, Tourisme Haute-Vienne / visitlimousin…).
 2. Sites institutionnels : mairie, communauté de communes, office de tourisme, bulletin municipal.
 3. Recherche web (WebSearch) : bars, restaurants, salles, associations, presse locale. Facebook/Instagram : abandonne si la page ne se charge pas.
-Tu peux paralléliser par zone avec des sous-agents si le volume le justifie.
+Parallélise par zone avec des sous-agents (un par zone) : les zones départementales représentent chacune 100 à 200 événements.
 
 RÈGLES DE QUALITÉ (impératives)
 - Chaque événement DOIT avoir un source_url réel que tu as effectivement consulté et qui mentionne l'événement. Sinon, pas d'événement. N'invente jamais une date, une heure ou un lieu.
